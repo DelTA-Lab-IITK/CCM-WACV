@@ -16,12 +16,16 @@ For installation, please follow the installation process as mentioned [here](htt
 1. We use pretrained VQA model which can be downloaded from [here](https://drive.google.com/drive/u/0/folders/1zQ4I8GrALJhvOfdzdgKAMriAHqQjUKal)
 2. Modify the `config.py` as per the requirement. Now, we can train the model
 
-```python train.py```
+```
+python train.py
+```
 ## Generating Explanations
 The pretrained model can be downloaded from [here](). Place the pretrained model in the path `model`
 Provide the directory as input and run the command:
 ```cd generate_vqa_exp```   
- ```python generate_explanation.py --ques_file ../VQA-X/Questions/v2_OpenEnded_mscoco_val2014_questions.json --ann_file ../VQA-X/Annotations/v2_mscoco_val2014_annotations.json --exp_file ../VQA-X/Annotations/val_exp_anno.json --gpu 0 --out_dir ../VQA-X/results --folder ../model/ --model_path $PATH_TO_CAFFEMODEL --use_gt --save_att_map```
+ ```
+ python generate_explanation.py --ques_file ../VQA-X/Questions/v2_OpenEnded_mscoco_val2014_questions.json --ann_file ../VQA-X/Annotations/v2_mscoco_val2014_annotations.json --exp_file ../VQA-X/Annotations/val_exp_anno.json --gpu 0 --out_dir ../VQA-X/results --folder ../model/ --model_path $PATH_TO_CAFFEMODEL --use_gt --save_att_map
+ ```
 
 
 ## References
