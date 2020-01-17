@@ -1,0 +1,481 @@
+force_backward: true
+input: "ans_label_one_hot"
+input_shape {
+  dim: 64
+  dim: 3000
+}
+input: "exp_label_one_hot"
+input_shape {
+  dim: 36
+  dim: 64
+  dim: 8247
+}
+
+input: "dis_label"
+input_shape {
+  dim: 64
+}
+
+input: "exp_cont_1"
+input_shape {
+  dim: 36
+  dim: 64
+}
+
+input: "exp_cont_2"
+input_shape {
+  dim: 36
+  dim: 64
+}
+
+
+# Discriminator net
+layer {
+  name: "vqa_exp_reshape"
+  type: "Reshape"
+  bottom: "exp_label_one_hot"
+  top: "vqa_exp_reshape"
+  reshape_param {
+    shape {
+      dim: -1
+      dim: 8247
+    }
+  }
+}
+layer {
+  name: "exp_embed_ba"
+  type: "InnerProduct"
+  bottom: "vqa_exp_reshape"
+  top: "exp_embed_ba"
+  inner_product_param {
+    num_output: 300
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "exp_embed_ba_reshape"
+  type: "Reshape"
+  bottom: "exp_embed_ba"
+  top: "exp_embed_ba_reshape"
+  reshape_param {
+    shape {
+      dim: -1
+      dim: 64
+      dim: 300
+    }
+  }
+}
+layer {
+  name: "exp_embed"
+  type: "TanH"
+  bottom: "exp_embed_ba_reshape"
+  top: "exp_embed"
+}
+layer {
+  name: "vqa_ans"
+  type: "InnerProduct"
+  bottom: "ans_label_one_hot"
+  top: "vqa_ans"
+  inner_product_param {
+    num_output: 300
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "exp_emb_ans_tanh"
+  type: "TanH"
+  bottom: "vqa_ans"
+  top: "exp_emb_ans_tanh"
+}
+layer {
+  name: "exp_emb_ans2"
+  type: "InnerProduct"
+  bottom: "exp_emb_ans_tanh"
+  top: "exp_emb_ans2"
+  inner_product_param {
+    num_output: 2048
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "exp_lstm1"
+  type: "LSTM"
+  bottom: "exp_embed"
+  bottom: "exp_cont_1"
+  top: "exp_lstm1"
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  recurrent_param {
+    num_output: 1024
+    weight_filler {
+      type: "uniform"
+      min: -0.07999999821186066
+      max: 0.07999999821186066
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "slice_first0"
+  type: "Slice"
+  bottom: "exp_lstm1"
+  top: "slice_first0"
+  top: "slice_first1"
+  top: "slice_first2"
+  top: "slice_first3"
+  top: "slice_first4"
+  top: "slice_first5"
+  top: "slice_first6"
+  top: "slice_first7"
+  top: "slice_first8"
+  top: "slice_first9"
+  top: "slice_first10"
+  top: "slice_first11"
+  top: "slice_first12"
+  top: "slice_first13"
+  top: "exp_lstm1_out"
+  top: "Slice1"
+  top: "Slice2"
+  top: "Slice3"
+  top: "Slice4"
+  top: "Slice5"
+  top: "Slice6"
+  top: "Slice7"
+  top: "Slice8"
+  top: "Slice9"
+  top: "Slice10"
+  top: "Slice11"
+  top: "Slice12"
+  top: "Slice13"
+  top: "Slice14"
+  top: "Slice15"
+  top: "Slice16"
+  top: "Slice17"
+  top: "Slice18"
+  top: "Slice19"
+  top: "Slice20"
+  top: "Slice21"
+  slice_param {
+    axis: 0
+  }
+}
+layer {
+  name: "silence_data_first0"
+  type: "Silence"
+  bottom: "slice_first0"
+}
+layer {
+  name: "silence_data_first1"
+  type: "Silence"
+  bottom: "slice_first1"
+}
+layer {
+  name: "silence_data_first2"
+  type: "Silence"
+  bottom: "slice_first2"
+}
+layer {
+  name: "silence_data_first3"
+  type: "Silence"
+  bottom: "slice_first3"
+}
+layer {
+  name: "silence_data_first4"
+  type: "Silence"
+  bottom: "slice_first4"
+}
+layer {
+  name: "silence_data_first5"
+  type: "Silence"
+  bottom: "slice_first5"
+}
+layer {
+  name: "silence_data_first6"
+  type: "Silence"
+  bottom: "slice_first6"
+}
+layer {
+  name: "silence_data_first7"
+  type: "Silence"
+  bottom: "slice_first7"
+}
+layer {
+  name: "silence_data_first8"
+  type: "Silence"
+  bottom: "slice_first8"
+}
+layer {
+  name: "silence_data_first9"
+  type: "Silence"
+  bottom: "slice_first9"
+}
+layer {
+  name: "silence_data_first10"
+  type: "Silence"
+  bottom: "slice_first10"
+}
+layer {
+  name: "silence_data_first11"
+  type: "Silence"
+  bottom: "slice_first11"
+}
+layer {
+  name: "silence_data_first12"
+  type: "Silence"
+  bottom: "slice_first12"
+}
+layer {
+  name: "silence_data_first13"
+  type: "Silence"
+  bottom: "slice_first13"
+}
+layer {
+  name: "exp_lstm1_reshaped"
+  type: "Reshape"
+  bottom: "exp_lstm1_out"
+  top: "exp_lstm1_reshaped"
+  reshape_param {
+    shape {
+      dim: -1
+      dim: 1024
+    }
+  }
+}
+layer {
+  name: "exp_lstm1_reshaped_droped"
+  type: "Dropout"
+  bottom: "exp_lstm1_reshaped"
+  top: "exp_lstm1_reshaped_droped"
+  dropout_param {
+    dropout_ratio: 0.30000001192092896
+  }
+}
+layer {
+  name: "exp_lstm1_droped"
+  type: "Dropout"
+  bottom: "exp_lstm1"
+  top: "exp_lstm1_droped"
+  dropout_param {
+    dropout_ratio: 0.30000001192092896
+  }
+}
+layer {
+  name: "exp_lstm2"
+  type: "LSTM"
+  bottom: "exp_lstm1_droped"
+  bottom: "exp_cont_2"
+  top: "exp_lstm2"
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+    decay_mult: 0.0
+  }
+  recurrent_param {
+    num_output: 1024
+    weight_filler {
+      type: "uniform"
+      min: -0.07999999821186066
+      max: 0.07999999821186066
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "slice_second0"
+  type: "Slice"
+  bottom: "exp_lstm2"
+  top: "slice_second0"
+  top: "slice_second1"
+  top: "slice_second2"
+  top: "slice_second3"
+  top: "slice_second4"
+  top: "slice_second5"
+  top: "slice_second6"
+  top: "slice_second7"
+  top: "slice_second8"
+  top: "slice_second9"
+  top: "slice_second10"
+  top: "slice_second11"
+  top: "slice_second12"
+  top: "slice_second13"
+  top: "exp_lstm2_out"
+  top: "Slice22"
+  top: "Slice23"
+  top: "Slice24"
+  top: "Slice25"
+  top: "Slice26"
+  top: "Slice27"
+  top: "Slice28"
+  top: "Slice29"
+  top: "Slice30"
+  top: "Slice31"
+  top: "Slice32"
+  top: "Slice33"
+  top: "Slice34"
+  top: "Slice35"
+  top: "Slice36"
+  top: "Slice37"
+  top: "Slice38"
+  top: "Slice39"
+  top: "Slice40"
+  top: "Slice41"
+  top: "Slice42"
+  slice_param {
+    axis: 0
+  }
+}
+layer {
+  name: "silence_data_second0"
+  type: "Silence"
+  bottom: "slice_second0"
+}
+layer {
+  name: "silence_data_second1"
+  type: "Silence"
+  bottom: "slice_second1"
+}
+layer {
+  name: "silence_data_second2"
+  type: "Silence"
+  bottom: "slice_second2"
+}
+layer {
+  name: "silence_data_second3"
+  type: "Silence"
+  bottom: "slice_second3"
+}
+layer {
+  name: "silence_data_second4"
+  type: "Silence"
+  bottom: "slice_second4"
+}
+layer {
+  name: "silence_data_second5"
+  type: "Silence"
+  bottom: "slice_second5"
+}
+layer {
+  name: "silence_data_second6"
+  type: "Silence"
+  bottom: "slice_second6"
+}
+layer {
+  name: "silence_data_second7"
+  type: "Silence"
+  bottom: "slice_second7"
+}
+layer {
+  name: "silence_data_second8"
+  type: "Silence"
+  bottom: "slice_second8"
+}
+layer {
+  name: "silence_data_second9"
+  type: "Silence"
+  bottom: "slice_second9"
+}
+layer {
+  name: "silence_data_second10"
+  type: "Silence"
+  bottom: "slice_second10"
+}
+layer {
+  name: "silence_data_second11"
+  type: "Silence"
+  bottom: "slice_second11"
+}
+layer {
+  name: "silence_data_second12"
+  type: "Silence"
+  bottom: "slice_second12"
+}
+layer {
+  name: "silence_data_second13"
+  type: "Silence"
+  bottom: "slice_second13"
+}
+layer {
+  name: "exp_lstm2_reshaped"
+  type: "Reshape"
+  bottom: "exp_lstm2_out"
+  top: "exp_lstm2_reshaped"
+  reshape_param {
+    shape {
+      dim: -1
+      dim: 1024
+    }
+  }
+}
+layer {
+  name: "exp_lstm2_reshaped_droped"
+  type: "Dropout"
+  bottom: "exp_lstm2_reshaped"
+  top: "exp_lstm2_reshaped_droped"
+  dropout_param {
+    dropout_ratio: 0.30000001192092896
+  }
+}
+layer {
+  name: "exp_lstm_12"
+  type: "Concat"
+  bottom: "exp_lstm1_reshaped_droped"
+  bottom: "exp_lstm2_reshaped_droped"
+  top: "exp_lstm_12"
+}
+layer {
+  name: "concat_ans_exp_layer"
+  type: "Concat"
+  bottom: "exp_emb_ans2"
+  bottom: "exp_lstm_12"
+  top: "concat_ans_exp_layer"
+}
+layer {
+  name: "concat_ans_exp_layer_dis"
+  type: "InnerProduct"
+  bottom: "concat_ans_exp_layer"
+  top: "concat_ans_exp_layer_dis"
+  inner_product_param {
+    num_output: 1
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "discr_loss"
+  type: "SigmoidCrossEntropyLoss"
+  bottom: "concat_ans_exp_layer_dis"
+  bottom: "dis_label"
+  top: "discr_loss"
+  loss_weight: 1
+}
+
