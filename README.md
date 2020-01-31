@@ -1,6 +1,6 @@
 # Robust Explanations for Visual Question Answering
 This repository contains the code for the following paper:
-* B. Patro, S. Patel, V. Namboodiri, _Robust Explanations for Visual Question Answering_ in WACV, 2020([PDF](https://arxiv.org/abs/2001.08730))
+* B. Patro, S. Patel, V. Namboodiri, _Robust Explanations for Visual Question Answering_ in WACV, 2020([PDF](https://arxiv.org/abs/2001.08730.pdf))
 
 [![Paper](http://img.shields.io/badge/paper-arxiv.1908.06306-B31B1B.svg)](https://arxiv.org/abs/2001.08730)
 [![Conference](http://img.shields.io/badge/WACV-2020-4b44ce.svg)]()
